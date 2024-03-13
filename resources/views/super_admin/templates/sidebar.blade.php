@@ -39,6 +39,14 @@
                     Pembayaran
                 </a>
             </li>
+            <li class="nav-item">
+                <a href="{{ url('su/monitoring') }}">
+                    <span class="icon-holder">
+                        <i class="anticon anticon-camera"></i>
+                    </span>
+                    Monitoring
+                </a>
+            </li>
         </ul>
     </div>
 </div>

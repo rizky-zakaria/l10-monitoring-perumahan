@@ -27,8 +27,6 @@ class LoginController extends Controller
 
         //check jika "email" dan "password" tidak sesuai
         if (!$token = auth()->guard('api')->attempt($credentials)) {
-
-            //response login "failed"
             return response()->json([
                 'success' => false,
                 'message' => 'Email or Password is incorrect'

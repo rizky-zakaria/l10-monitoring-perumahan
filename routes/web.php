@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\SuperAdmin\AdminController;
 use App\Http\Controllers\SuperAdmin\MemberController;
+use App\Http\Controllers\SuperAdmin\MonitoringController;
 use App\Http\Controllers\SuperAdmin\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -26,6 +27,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/home', [App\Http\Controllers\SuperAdmin\HomeController::class, 'index'])->name('su.home');
         Route::resource('member', MemberController::class);
         Route::resource('admin', AdminController::class);
+        Route::get('monitoring', [MonitoringController::class, 'index']);
         Route::get('profile', [ProfileController::class, 'index']);
     });
     Route::group(['middleware' => ['role:administrator'], 'prefix' => 'admin'], function () {

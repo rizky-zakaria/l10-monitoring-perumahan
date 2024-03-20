@@ -2,7 +2,7 @@
     <div class="side-nav-inner">
         <ul class="side-nav-menu scrollable">
             <li class="nav-item">
-                <a href="">
+                <a href="{{ url('su/home') }}">
                     <span class="icon-holder">
                         <i class="anticon anticon-dashboard"></i>
                     </span>
@@ -31,8 +31,9 @@
                     </li>
                 </ul>
             </li>
+
             <li class="nav-item">
-                <a href="">
+                <a href="{{ url('su/pembayaran') }}">
                     <span class="icon-holder">
                         <i class="anticon anticon-credit-card"></i>
                     </span>

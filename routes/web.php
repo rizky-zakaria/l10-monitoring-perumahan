@@ -3,6 +3,7 @@
 use App\Http\Controllers\SuperAdmin\AdminController;
 use App\Http\Controllers\SuperAdmin\MemberController;
 use App\Http\Controllers\SuperAdmin\MonitoringController;
+use App\Http\Controllers\SuperAdmin\PaymentController;
 use App\Http\Controllers\SuperAdmin\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -29,6 +30,7 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('admin', AdminController::class);
         Route::get('monitoring', [MonitoringController::class, 'index']);
         Route::get('profile', [ProfileController::class, 'index']);
+        Route::get('pembayaran', [PaymentController::class, 'index']);
     });
     Route::group(['middleware' => ['role:administrator'], 'prefix' => 'admin'], function () {
         Route::get('/home', [App\Http\Controllers\Admin\HomeController::class, 'index'])->name('admin.home');

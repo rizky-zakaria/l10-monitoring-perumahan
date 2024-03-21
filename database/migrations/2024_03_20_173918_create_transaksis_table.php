@@ -20,6 +20,7 @@ return new class extends Migration
             $table->bigInteger('user_id');
             $table->integer('qty');
             $table->string('checkout_link');
+            $table->string('periode');
             $table->timestamps();
         });
     }

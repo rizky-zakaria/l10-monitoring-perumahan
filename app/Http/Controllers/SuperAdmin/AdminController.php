@@ -4,6 +4,7 @@ namespace App\Http\Controllers\SuperAdmin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -14,6 +15,8 @@ class AdminController extends Controller
     public function index()
     {
         $data = User::where('role', 'administrator')->get();
+        dd(date('Y') . '-' . Carbon::now()->subMonth()->month);
+        // dd(Carbon::now()->subYear()->year);
         return view('super_admin.admin.index', [
             'data' => $data
         ]);

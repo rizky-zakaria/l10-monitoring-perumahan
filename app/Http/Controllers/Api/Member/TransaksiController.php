@@ -71,6 +71,7 @@ class TransaksiController extends Controller
             $payment->product_id = $request->id;
             $payment->checkout_link = $response->redirect_url;
             $payment->qty = $request->qty;
+            $payment->periode = date('Y-m');
             $payment->save();
 
             $product->stok = $product->stok - $request->qty;

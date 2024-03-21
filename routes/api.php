@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\Api\Member\KeamananController;
+use App\Http\Controllers\Api\Member\KebersihanController;
+use App\Http\Controllers\Api\Member\PdamController;
+use App\Http\Controllers\Api\Member\TransaksiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,6 +21,10 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('member')->group(function () {
     Route::post('/login', [App\Http\Controllers\Api\Member\LoginController::class, 'index']);
     Route::group(['middleware' => 'auth:api'], function () {
+        Route::resource('keamanan', KeamananController::class)->except(['create', 'edit', 'destroy']);
+        Route::resource('kebersihan', KebersihanController::class)->except(['create', 'edit', 'destroy']);
+        Route::resource('pdam', PdamController::class)->except(['create', 'edit', 'destroy']);
         Route::post('/logout', [App\Http\Controllers\Api\Member\LoginController::class, 'logout']);
     });
+    Route::post('transaksis/webhook', [TransaksiController::class, 'webhook']);
 });

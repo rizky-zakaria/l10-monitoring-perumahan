@@ -84,10 +84,10 @@
                             <tbody>
                                 @foreach ($data as $item)
                                     <tr>
-                                        <td>{{ $data->order_id }}</td>
-                                        <td>{{ $item->user->name }}</td>
-                                        <td>{{ $item->produk->kategori }}</td>
-                                        <td>{{ $item->status }}</td>
+                                        <td>{{ $item->order_id }}</td>
+                                        <td>{{ $item->name }}</td>
+                                        <td>{{ $item->kategori }}</td>
+                                        <td>{{ $item->status == 'capture' ? 'successfuly' : $item->status }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>

@@ -17,14 +17,19 @@ class PdamController extends Controller
 {
     public function index()
     {
-        $data = Transaksi::where('user_id')->orderBy('created_at', 'desc')->get();
+        $data = Transaksi::join('produks', 'produks.id', '=', 'transaksis.produk_id')
+            ->where('transaksis.user_id', Auth::user()->id)
+            ->where('produks.kategori', 'pdam')
+            ->where('transaksis.status', 'capture')
+            ->orderBy('transaksis.created_at', 'desc')
+            ->get();
         return new DataResource(true, 'Successfuly', $data);
     }
 
     public function show($id)
     {
         if (Carbon::now()->subMonth()->month == 12) {
-            $periode = date('Y') . '-' . Carbon::now()->subMonth()->month;
+            $periode = Carbon::now()->subYear()->year . '-' . Carbon::now()->subMonth()->month;
             $transaksi = Transaksi::where('user_id', Auth::user()->id)
                 ->where('kategori', 'pdam')
                 ->where('periode', $periode)
@@ -32,17 +37,19 @@ class PdamController extends Controller
                 ->first();
         } else {
             if (Carbon::now()->subMonth()->month < 10) {
-                $periode = Carbon::now()->subYear()->year . '-0' . Carbon::now()->subMonth()->month;
+                $periode = date('Y') . '-0' . Carbon::now()->subMonth()->month;
             } else {
-                $periode = Carbon::now()->subYear()->year . '-' . Carbon::now()->subMonth()->month;
+                $periode = date('Y') . '-' . Carbon::now()->subMonth()->month;
             }
-            $transaksi = Transaksi::where('user_id', Auth::user()->id)
-                ->where('kategori', 'pdam')
-                ->where('periode', $periode)
-                ->where('status', 'capture')
-                ->first();
+            $transaksi = Transaksi::join('produks', 'produks.id', '=', 'transaksis.produk_id')
+                ->where('transaksis.user_id', Auth::user()->id)
+                ->where('produks.kategori', 'pdam')
+                ->where('transaksis.periode', $periode)
+                ->where('transaksis.status', 'capture')
+                ->first(['transaksis.id']);
         }
-        if (count($transaksi) > 0) {
+
+        if ($transaksi != null) {
             return new DataResource(false, 'Tidak ada tagihan saat ini.', null);
         }
         $data = Produk::find($id);
@@ -105,7 +112,11 @@ class PdamController extends Controller
             $payment->produk_id = $request->id;
             $payment->checkout_link = $response->redirect_url;
             $payment->qty = 1;
-            $payment->periode = date('Y-m');
+            if (Carbon::now()->subMonth()->month < 10) {
+                $payment->periode = date('Y-0') . Carbon::now()->subMonth()->month;
+            } else {
+                $payment->periode = date('Y-') . Carbon::now()->subMonth()->month;
+            }
             $payment->save();
 
             return response()->json([

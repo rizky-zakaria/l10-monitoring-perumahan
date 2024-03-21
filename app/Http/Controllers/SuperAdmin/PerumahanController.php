@@ -3,18 +3,18 @@
 namespace App\Http\Controllers\SuperAdmin;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Models\Perumahan;
 use Illuminate\Http\Request;
 
-class AdminController extends Controller
+class PerumahanController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $data = User::where('role', 'administrator')->get();
-        return view('super_admin.admin.index', [
+        $data = Perumahan::all();
+        return view('super_admin.perumahan.index', [
             'data' => $data
         ]);
     }

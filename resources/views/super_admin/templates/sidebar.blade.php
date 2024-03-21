@@ -21,7 +21,7 @@
                 </a>
                 <ul class="dropdown-menu">
                     <li>
-                        <a href="{{ url('su/admin') }}">Admin</a>
+                        <a href="{{ url('su/administrator') }}">Administrator</a>
                     </li>
                     <li>
                         <a href="{{ url('su/member') }}">Member</a>

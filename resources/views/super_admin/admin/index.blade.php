@@ -2,12 +2,12 @@
 @section('content')
     <div class="main-content">
         <div class="page-header">
-            <h2 class="header-title">Data Member</h2>
+            <h2 class="header-title">Data Administrator</h2>
             <div class="header-sub-title">
                 <nav class="breadcrumb breadcrumb-dash">
                     <a href="" class="breadcrumb-item"><i class="anticon anticon-database m-r-5"></i>Master Data</a>
-                    <a class="breadcrumb-item" href="">Member</a>
-                    <span class="breadcrumb-item active">Data Member</span>
+                    <a class="breadcrumb-item" href="">Administrator</a>
+                    <span class="breadcrumb-item active">Data Administrator</span>
                 </nav>
             </div>
             <a href="{{ url('su/member/create') }}" class="btn btn-primary btn-sm float-right">Tambah Data</a>

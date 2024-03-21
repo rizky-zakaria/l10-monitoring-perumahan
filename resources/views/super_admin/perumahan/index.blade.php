@@ -6,11 +6,11 @@
             <div class="header-sub-title">
                 <nav class="breadcrumb breadcrumb-dash">
                     <a href="" class="breadcrumb-item"><i class="anticon anticon-database m-r-5"></i>Master Data</a>
-                    <a class="breadcrumb-item" href="">Member</a>
-                    <span class="breadcrumb-item active">Data Member</span>
+                    <a class="breadcrumb-item" href="">Perumahan</a>
+                    <span class="breadcrumb-item active">Data Perumahan</span>
                 </nav>
             </div>
-            <a href="{{ url('su/member/create') }}" class="btn btn-primary btn-sm float-right">Tambah Data</a>
+            <a href="{{ url('su/perumahan/create') }}" class="btn btn-primary btn-sm float-right">Tambah Data</a>
         </div>
         <div class="card">
             <div class="card-body">
@@ -19,8 +19,10 @@
                         <thead>
                             <tr>
                                 <th>Nomor</th>
-                                <th>Nama</th>
-                                <th>Email</th>
+                                <th>Nomor Rumah</th>
+                                <th>Kawasan</th>
+                                <th>Tipe</th>
+                                <th>Status</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -28,8 +30,10 @@
                             @foreach ($data as $item)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $item->name }}</td>
-                                    <td>{{ $item->email }}</td>
+                                    <td>{{ $item->nomor_rumah }}</td>
+                                    <td>{{ $item->kawasan }}</td>
+                                    <td>{{ $item->tipe }}</td>
+                                    <td>{{ $item->status }}</td>
                                     <td>
                                         <a href="{{ url('su/member/' . $item->id . '/edit') }}"
                                             class="btn btn-success btn-sm">Edit</a>
@@ -42,8 +46,10 @@
                         <tfoot>
                             <tr>
                                 <th>Nomor</th>
-                                <th>Nama</th>
-                                <th>Email</th>
+                                <th>Nomor Rumah</th>
+                                <th>Kawasan</th>
+                                <th>Tipe</th>
+                                <th>Status</th>
                                 <th>Aksi</th>
                             </tr>
                         </tfoot>

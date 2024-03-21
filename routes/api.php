@@ -3,6 +3,8 @@
 use App\Http\Controllers\Api\Member\KeamananController;
 use App\Http\Controllers\Api\Member\KebersihanController;
 use App\Http\Controllers\Api\Member\PdamController;
+use App\Http\Controllers\Api\Member\ProdukController;
+use App\Http\Controllers\Api\Member\ProfileController;
 use App\Http\Controllers\Api\Member\TransaksiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -24,6 +26,8 @@ Route::prefix('member')->group(function () {
         Route::resource('keamanan', KeamananController::class)->except(['create', 'edit', 'destroy']);
         Route::resource('kebersihan', KebersihanController::class)->except(['create', 'edit', 'destroy']);
         Route::resource('pdam', PdamController::class)->except(['create', 'edit', 'destroy']);
+        Route::resource('produk', ProdukController::class)->except(['create', 'edit', 'destroy']);
+        Route::get('profile', [ProfileController::class, 'show']);
         Route::post('/logout', [App\Http\Controllers\Api\Member\LoginController::class, 'logout']);
     });
     Route::post('transaksis/webhook', [TransaksiController::class, 'webhook']);

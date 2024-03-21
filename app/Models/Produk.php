@@ -21,8 +21,8 @@ class Produk extends Model
         return $this->belongsTo(Market::class, 'market_id');
     }
 
-    public function transaksi()
+    public function transaksiDetail()
     {
-        return $this->hasMany(Transaksi::class);
+        return $this->hasOne(TransaksiDetail::class);
     }
 }

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\DataResource;
 use App\Models\Produk;
 use App\Models\Transaksi;
+use App\Models\TransaksiDetail;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -109,15 +110,20 @@ class KeamananController extends Controller
             $payment->status = 'pending';
             $payment->harga = $product->harga;
             $payment->user_id = auth()->user()->id;
-            $payment->produk_id = $request->id;
             $payment->checkout_link = $response->redirect_url;
-            $payment->qty = 1;
             if (Carbon::now()->subMonth()->month < 10) {
                 $payment->periode = date('Y-0') . Carbon::now()->subMonth()->month;
             } else {
                 $payment->periode = date('Y-') . Carbon::now()->subMonth()->month;
             }
+            $payment->kategori = 'keamanan';
             $payment->save();
+
+            $transaksiDetail = new TransaksiDetail();
+            $transaksiDetail->produk_id = $request->id;
+            $transaksiDetail->qty = 1;
+            $transaksiDetail->transaksi_id = $payment->id;
+            $transaksiDetail->save();
 
             return response()->json([
                 'status' => true,

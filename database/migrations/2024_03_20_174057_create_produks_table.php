@@ -21,6 +21,7 @@ return new class extends Migration
             $table->text('deskripsi');
             $table->text('ketentuan');
             $table->bigInteger('market_id');
+            $table->string('status');
             $table->timestamps();
         });
     }

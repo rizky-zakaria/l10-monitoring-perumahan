@@ -16,8 +16,8 @@ class Transaksi extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function produk()
+    public function transaksiDetail()
     {
-        return $this->belongsTo(Produk::class, 'produk_id');
+        return $this->hasMany(TransaksiDetail::class);
     }
 }

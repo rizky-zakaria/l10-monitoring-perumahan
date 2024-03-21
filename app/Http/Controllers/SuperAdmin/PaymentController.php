@@ -10,12 +10,17 @@ class PaymentController extends Controller
 {
     public function index()
     {
-        $data = Transaksi::join('users', 'users.id', '=', 'transaksis.user_id')
-            ->join('produks', 'produks.id', '=', 'transaksis.produk_id')
-            ->orderBy('transaksis.created_at', 'desc')
-            ->get(['transaksis.*', 'users.name', 'produks.produk', 'produks.kategori']);
+        $market = Transaksi::where('kategori', 'market')->where('status', 'capture')->where('created_at', 'like', '%' . date('Y-m') . '%')->sum('harga');
+        $pdam = Transaksi::where('kategori', 'pdam')->where('status', 'capture')->where('created_at', 'like', '%' . date('Y-m') . '%')->sum('harga');
+        $keamanan = Transaksi::where('kategori', 'keamanan')->where('status', 'capture')->where('created_at', 'like', '%' . date('Y-m') . '%')->sum('harga');
+        $kebersihan = Transaksi::where('kategori', 'kebersihan')->where('status', 'capture')->where('created_at', 'like', '%' . date('Y-m') . '%')->sum('harga');
+        $data = Transaksi::orderBy('created_at', 'desc')->get();
         return view('super_admin.payment.index', [
-            'data' => $data
+            'data' => $data,
+            'market' => $market,
+            'pdam' => $pdam,
+            'keamanan' => $keamanan,
+            'kebersihan' => $kebersihan
         ]);
     }
 }

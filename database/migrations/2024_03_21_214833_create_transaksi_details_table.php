@@ -11,15 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('transaksis', function (Blueprint $table) {
+        Schema::create('transaksi_details', function (Blueprint $table) {
             $table->id();
-            $table->string('order_id');
-            $table->string('status');
-            $table->double('harga');
-            $table->bigInteger('user_id');
-            $table->string('checkout_link');
-            $table->string('periode');
-            $table->string('kategori');
+            $table->bigInteger('produk_id');
+            $table->integer('qty');
+            $table->bigInteger('transaksi_id');
             $table->timestamps();
         });
     }
@@ -29,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('transaksis');
+        Schema::dropIfExists('transaksi_details');
     }
 };

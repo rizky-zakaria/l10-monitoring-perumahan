@@ -10,9 +10,9 @@
                                 <i class="anticon anticon-shopping-cart"></i>
                             </div>
                             <div class="m-l-15">
-                                <h2 class="m-b-0">
-                                    Rp. {{ isset($data) == true ? count($data->where('kategori', 'market')) : '0' }}
-                                </h2>
+                                <h5 class="m-b-0">
+                                    Rp. {{ isset($market) ? number_format($market, 0, ',', '.') : '0' }}
+                                </h5>
                                 <p class="m-b-0 text-muted">Market</p>
                             </div>
                         </div>
@@ -27,8 +27,9 @@
                                 <i class="anticon anticon-bg-colors"></i>
                             </div>
                             <div class="m-l-15">
-                                <h2 class="m-b-0">Rp.
-                                    {{ isset($data) == true ? count($data->where('kategori', 'market')) : '0' }}</h2>
+                                <h5 class="m-b-0">
+                                    Rp. {{ isset($pdam) ? number_format($pdam, 0, ',', '.') : '0' }}
+                                </h5>
                                 <p class="m-b-0 text-muted">PDAM</p>
                             </div>
                         </div>
@@ -43,8 +44,9 @@
                                 <i class="anticon anticon-delete"></i>
                             </div>
                             <div class="m-l-15">
-                                <h2 class="m-b-0">Rp.
-                                    {{ isset($data) == true ? count($data->where('kategori', 'market')) : '0' }}</h2>
+                                <h5 class="m-b-0">
+                                    Rp. {{ isset($kebersihan) ? number_format($kebersihan, 0, ',', '.') : '0' }}
+                                </h5>
                                 <p class="m-b-0 text-muted">Kebersihan</p>
                             </div>
                         </div>
@@ -59,8 +61,9 @@
                                 <i class="anticon anticon-user"></i>
                             </div>
                             <div class="m-l-15">
-                                <h2 class="m-b-0">Rp.
-                                    {{ isset($data) == true ? count($data->where('kategori', 'market')) : '0' }}</h2>
+                                <h5 class="m-b-0">
+                                    Rp. {{ isset($keamanan) ? number_format($keamanan, 0, ',', '.') : '0' }}
+                                </h5>
                                 <p class="m-b-0 text-muted"> Keamanan</p>
                             </div>
                         </div>
@@ -77,7 +80,9 @@
                                 <tr>
                                     <th>ID Order</th>
                                     <th>Nama</th>
+                                    <th>Produk</th>
                                     <th>Kategori Transaksi</th>
+                                    <th>Harga</th>
                                     <th>Status</th>
                                 </tr>
                             </thead>
@@ -85,8 +90,20 @@
                                 @foreach ($data as $item)
                                     <tr>
                                         <td>{{ $item->order_id }}</td>
-                                        <td>{{ $item->name }}</td>
-                                        <td>{{ $item->kategori }}</td>
+                                        <td>{{ $item->user->name }}</td>
+                                        <td>
+                                            @foreach ($item->transaksiDetail as $produk)
+                                                <ul>
+                                                    <li>
+                                                        {{ $produk->produk->produk }}
+                                                    </li>
+                                                </ul>
+                                            @endforeach
+                                        </td>
+                                        <td>
+                                            {{ $item->transaksiDetail[0]->produk->kategori }}
+                                        </td>
+                                        <td>Rp. {{ number_format($item->harga, 0, ',', '.') }}</td>
                                         <td>{{ $item->status == 'capture' ? 'successfuly' : $item->status }}</td>
                                     </tr>
                                 @endforeach
@@ -95,7 +112,9 @@
                                 <tr>
                                     <th>ID Order</th>
                                     <th>Nama</th>
+                                    <th>Produk</th>
                                     <th>Kategori Transaksi</th>
+                                    <th>Harga</th>
                                     <th>Status</th>
                                 </tr>
                             </tfoot>

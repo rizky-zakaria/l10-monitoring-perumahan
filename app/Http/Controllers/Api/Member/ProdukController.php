@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\DataResource;
 use App\Models\Biodata;
 use App\Models\Produk;
+use App\Models\Terlaris;
 use App\Models\Transaksi;
 use App\Models\TransaksiDetail;
 use Carbon\Carbon;
@@ -111,6 +112,17 @@ class ProdukController extends Controller
                 $transaksiDetail->qty = json_decode($request->qty)[$i];
                 $transaksiDetail->transaksi_id = $payment->id;
                 $transaksiDetail->save();
+
+                $terlaris = Terlaris::where('produk_id', json_decode($request->id)[$i])->first();
+                if ($terlaris) {
+                    $terlaris->terjual = $terlaris->terjual + json_decode($request->qty)[$i];
+                    $terlaris->update();
+                } else {
+                    Terlaris::create([
+                        'produk_id' => json_decode($request->id)[$i],
+                        'terjual' => json_decode($request->qty)[$i]
+                    ]);
+                }
             }
 
             return response()->json([
@@ -124,5 +136,22 @@ class ProdukController extends Controller
                 'message' => 'Gagal mengisi database'
             ]);
         }
+    }
+
+    public function terlaris()
+    {
+        $kawasan = Biodata::where('user_id', Auth::user()->id)->first();
+
+        $data = Produk::join('markets', 'markets.id', '=', 'produks.market_id')
+            ->join('gambars', 'gambars.id', '=', 'produks.gambar_id')
+            ->join('terlaris', 'terlaris.produk_id', '=', 'produks.id')
+            ->where('markets.kawasan_id', $kawasan->kawasan_id)
+            ->where('produks.kategori', 'market')
+            ->where('produks.status', 'aktif')
+            ->orderBy('terlaris.terjual', 'desc')
+            ->orderBy('produks.created_at', 'desc')
+            ->limit(6)
+            ->get(['produks.*', 'gambars.gambar']);
+        return new DataResource(true, 'Successfuly', $data);
     }
 }

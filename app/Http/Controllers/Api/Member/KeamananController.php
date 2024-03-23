@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Member;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\DataResource;
+use App\Models\Biodata;
 use App\Models\Produk;
 use App\Models\Transaksi;
 use App\Models\TransaksiDetail;
@@ -18,7 +19,8 @@ class KeamananController extends Controller
 {
     public function index()
     {
-        $data = Transaksi::join('produks', 'produks.id', '=', 'transaksis.produk_id')
+        $data = Transaksi::join('transaksi_details', 'transaksi_details.transaksi_id', '=', 'transaksis.id')
+            ->join('produks', 'produks.id', '=', 'transaksi_details.produk_id')
             ->where('transaksis.user_id', Auth::user()->id)
             ->where('produks.kategori', 'keamanan')
             ->where('transaksis.status', 'capture')
@@ -42,7 +44,8 @@ class KeamananController extends Controller
             } else {
                 $periode = date('Y') . '-' . Carbon::now()->subMonth()->month;
             }
-            $transaksi = Transaksi::join('produks', 'produks.id', '=', 'transaksis.produk_id')
+            $transaksi = Transaksi::join('transaksi_details', 'transaksi_details.transaksi_id', '=', 'transaksis.id')
+                ->join('produks', 'produks.id', '=', 'transaksi_details.produk_id')
                 ->where('transaksis.user_id', Auth::user()->id)
                 ->where('produks.kategori', 'keamanan')
                 ->where('transaksis.periode', $periode)

@@ -18,7 +18,8 @@ class KebersihanController extends Controller
 {
     public function index()
     {
-        $data = Transaksi::join('produks', 'produks.id', '=', 'transaksis.produk_id')
+        $data = Transaksi::join('transaksi_details', 'transaksi_details.transaksi_id', '=', 'transaksis.id')
+            ->join('produks', 'produks.id', '=', 'transaksi_details.produk_id')
             ->where('transaksis.user_id', Auth::user()->id)
             ->where('produks.kategori', 'kebersihan')
             ->where('transaksis.status', 'capture')
@@ -42,7 +43,8 @@ class KebersihanController extends Controller
             } else {
                 $periode = date('Y') . '-' . Carbon::now()->subMonth()->month;
             }
-            $transaksi = Transaksi::join('produks', 'produks.id', '=', 'transaksis.produk_id')
+            $transaksi = Transaksi::join('transaksi_details', 'transaksi_details.transaksi_id', '=', 'transaksis.id')
+                ->join('produks', 'produks.id', '=', 'transaksi_details.produk_id')
                 ->where('transaksis.user_id', Auth::user()->id)
                 ->where('produks.kategori', 'kebersihan')
                 ->where('transaksis.periode', $periode)

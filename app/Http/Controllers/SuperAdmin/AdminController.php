@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\SuperAdmin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Terlaris;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;

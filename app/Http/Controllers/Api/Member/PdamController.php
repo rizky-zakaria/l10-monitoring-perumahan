@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Api\Member;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\DataResource;
+use App\Models\Biodata;
 use App\Models\Produk;
 use App\Models\Transaksi;
 use App\Models\TransaksiDetail;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,12 +20,13 @@ class PdamController extends Controller
 {
     public function index()
     {
-        $data = Transaksi::join('produks', 'produks.id', '=', 'transaksis.produk_id')
+        $data = Transaksi::join('transaksi_details', 'transaksi_details.transaksi_id', '=', 'transaksis.id')
+            ->join('produks', 'produks.id', '=', 'transaksi_details.produk_id')
             ->where('transaksis.user_id', Auth::user()->id)
             ->where('produks.kategori', 'pdam')
             ->where('transaksis.status', 'capture')
             ->orderBy('transaksis.created_at', 'desc')
-            ->get();
+            ->get(['produks.produk', 'transaksis.*']);
         return new DataResource(true, 'Successfuly', $data);
     }
 
@@ -42,7 +45,8 @@ class PdamController extends Controller
             } else {
                 $periode = date('Y') . '-' . Carbon::now()->subMonth()->month;
             }
-            $transaksi = Transaksi::join('produks', 'produks.id', '=', 'transaksis.produk_id')
+            $transaksi = Transaksi::join('transaksi_details', 'transaksi_details.transaksi_id', '=', 'transaksis.id')
+                ->join('produks', 'produks.id', '=', 'transaksi_details.produk_id')
                 ->where('transaksis.user_id', Auth::user()->id)
                 ->where('produks.kategori', 'pdam')
                 ->where('transaksis.periode', $periode)
@@ -54,6 +58,7 @@ class PdamController extends Controller
             return new DataResource(false, 'Tidak ada tagihan saat ini.', null);
         }
         $data = Produk::find($id);
+        // $user = Biodata::where('user_id', Auth::user()->id)->first();
         return new DataResource(true, 'Successfuly', $data);
     }
 

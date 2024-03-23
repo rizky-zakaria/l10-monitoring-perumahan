@@ -34,7 +34,7 @@ class ProdukSeeder extends Seeder
         }
 
         Produk::create([
-            'produk' => 'PDAM',
+            'produk' => 'PDAM Muara Tirta',
             'harga' => 125000,
             'stok' => 1,
             'gambar_id' => 1,
@@ -46,7 +46,7 @@ class ProdukSeeder extends Seeder
         ]);
 
         Produk::create([
-            'produk' => 'Kebersihan',
+            'produk' => 'BLH Kota Gorontalo',
             'harga' => 15000,
             'stok' => 1,
             'gambar_id' => 1,
@@ -58,7 +58,7 @@ class ProdukSeeder extends Seeder
         ]);
 
         Produk::create([
-            'produk' => 'Keamanan',
+            'produk' => 'Otoritas Jasa Keamanan',
             'harga' => 100000,
             'stok' => 1,
             'gambar_id' => 1,

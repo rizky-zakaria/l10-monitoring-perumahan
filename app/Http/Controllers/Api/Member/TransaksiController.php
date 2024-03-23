@@ -17,7 +17,7 @@ class TransaksiController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'qty'    => 'required|max:1',
+            'qty'    => 'required',
             'id'     => 'required',
         ]);
 

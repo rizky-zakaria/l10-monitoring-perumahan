@@ -29,8 +29,9 @@ Route::prefix('member')->group(function () {
         Route::resource('kebersihan', KebersihanController::class)->except(['create', 'edit', 'destroy']);
         Route::resource('pdam', PdamController::class)->except(['create', 'edit', 'destroy']);
         Route::resource('produk', ProdukController::class)->except(['create', 'edit', 'destroy']);
-        Route::resource('keranjang', KeranjangController::class)->except(['create', 'edit', 'destroy']);
+        Route::resource('keranjang', KeranjangController::class)->except(['create', 'edit', 'update']);
         Route::resource('profile', ProfileController::class)->except(['create', 'edit', 'destroy', 'show', 'update']);
+        Route::post('transaksi', [TransaksiController::class, 'store']);
         Route::post('/logout', [App\Http\Controllers\Api\Member\LoginController::class, 'logout']);
     });
     Route::post('transaksis/webhook', [TransaksiController::class, 'webhook']);

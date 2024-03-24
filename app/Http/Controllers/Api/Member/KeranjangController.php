@@ -42,4 +42,11 @@ class KeranjangController extends Controller
 
         return new DataResource(true, 'Successfuly', $data);
     }
+
+    public function destroy($id)
+    {
+        $data = Keranjang::find($id);
+        $data->delete();
+        return new DataResource(true, 'Successfuly', null);
+    }
 }

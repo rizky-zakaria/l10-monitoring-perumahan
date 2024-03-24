@@ -33,14 +33,15 @@ class ProdukController extends Controller
 
     public function show($id)
     {
-        $data = Produk::find($id);
+        $data = Produk::join('gambars', 'gambars.id', '=', 'produks.gambar_id')
+            ->where('produks.id', $id)->first(['produks.*', 'gambars.gambar']);
         return new DataResource(true, 'Successfuly', $data);
     }
 
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'id'  => 'required',
+            'confirmation'  => 'required',
             'qty' => 'required'
         ]);
 

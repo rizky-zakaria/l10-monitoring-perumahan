@@ -6,6 +6,7 @@ use App\Http\Controllers\SuperAdmin\MonitoringController;
 use App\Http\Controllers\SuperAdmin\PaymentController;
 use App\Http\Controllers\SuperAdmin\PerumahanController;
 use App\Http\Controllers\SuperAdmin\ProfileController;
+use App\Http\Controllers\Web\TransaksiController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -38,3 +39,4 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/home', [App\Http\Controllers\Admin\HomeController::class, 'index'])->name('admin.home');
     });
 });
+Route::get('transaksi/successfuly', [TransaksiController::class, 'index']);

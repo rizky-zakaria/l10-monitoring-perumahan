@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Api\Member;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\DataResource;
+use App\Models\Keranjang;
 use App\Models\Produk;
 use App\Models\Transaksi;
+use App\Models\TransaksiDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
@@ -17,8 +20,7 @@ class TransaksiController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'qty'    => 'required',
-            'id'     => 'required',
+            'confirmation'    => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -26,25 +28,24 @@ class TransaksiController extends Controller
         }
 
         try {
-            $product = Produk::whereId($request->id)->first();
+            $harga = [];
 
-            if ($product->stok < $request->qty) {
-                return response()->json([
-                    'status' => false,
-                    'message' => 'Gagal mendapatkan data'
-                ]);
+            $keranjang = Keranjang::where('user_id', Auth::user()->id)->get();
+            foreach ($keranjang as $item) {
+                $harga[] = $item->harga;
             }
+            // return new DataResource(true, 'Successfuly', array_sum($harga));
 
             $params = array(
                 'transaction_details' => array(
                     'order_id' => Str::uuid(),
-                    'gross_amount' => $product->harga
+                    'gross_amount' => array_sum($harga)
                 ),
                 'item_details' => array(
                     array(
-                        'price' => $product->harga,
-                        'quantity' => $request->qty,
-                        'name' => $product->product
+                        'price' => array_sum($harga),
+                        'quantity' => 1,
+                        'name' => 'Paket Belanja Harian'
                     )
                 ),
                 'customer_details' => array(
@@ -66,22 +67,29 @@ class TransaksiController extends Controller
             $payment = new Transaksi();
             $payment->order_id = $params['transaction_details']['order_id'];
             $payment->status = 'pending';
-            $payment->harga = $product->harga;
+            $payment->harga = array_sum($harga);
             $payment->user_id = auth()->user()->id;
-            $payment->product_id = $request->id;
             $payment->checkout_link = $response->redirect_url;
-            $payment->qty = $request->qty;
             $payment->periode = date('Y-m');
+            $payment->kategori = 'market';
             $payment->save();
 
-            $product->stok = $product->stok - $request->qty;
-            $product->update();
 
-            return response()->json([
-                'status' => true,
-                'message' => 'Berhasil mengisi database',
-                'data' => $payment
-            ]);
+            $keranjang = Keranjang::where('user_id', Auth::user()->id)->get();
+            foreach ($keranjang as $item) {
+                $produk = Produk::find($item->produk_id);
+                $produk->stok = $produk->stok - $item->qty;
+                $produk->update();
+                $td = TransaksiDetail::create([
+                    'produk_id' => $item->produk_id,
+                    'qty' => $item->qty,
+                    'transaksi_id' => $payment->id
+                ]);
+                $delKeranjang = Keranjang::find($item->id);
+                $delKeranjang->delete();
+            }
+
+            return new DataResource(true, 'Successfuly', $payment);
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => false,
@@ -123,6 +131,6 @@ class TransaksiController extends Controller
 
         $payment->update();
         // return response()->json('success');
-        return redirect(url('https://oluhutajourney.com'));
+        return redirect(url('https://4124-2001-448a-7063-2dfb-a8cb-c1b9-83e1-aa9e.ngrok-free.app/transaksi/successfuly'));
     }
 }

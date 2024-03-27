@@ -35,6 +35,7 @@ Route::prefix('member')->group(function () {
         Route::get('deliveri/{id}', [DeliveriController::class, 'show']);
         Route::get('transaksi', [TransaksiController::class, 'index']);
         Route::post('transaksi', [TransaksiController::class, 'store']);
+        Route::post('transaksi/tunai', [TransaksiController::class, 'storeTunai']);
         Route::get('transaksi/{id}', [TransaksiController::class, 'show']);
         Route::post('/logout', [App\Http\Controllers\Api\Member\LoginController::class, 'logout']);
     });

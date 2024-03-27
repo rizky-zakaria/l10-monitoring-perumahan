@@ -20,4 +20,9 @@ class Biodata extends Model
     {
         return $this->belongsTo(Kawasan::class, 'kawasan_id');
     }
+
+    public function perumahan()
+    {
+        return $this->belongsTo(Perumahan::class, 'perumahan_id');
+    }
 }

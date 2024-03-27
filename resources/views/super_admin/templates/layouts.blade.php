@@ -237,6 +237,7 @@
 
     <!-- Core JS -->
     <script src="{{ asset('assets/js/app.min.js') }}"></script>
+    @include('sweetalert::alert')
     @stack('js')
 </body>
 

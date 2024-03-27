@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\SuperAdmin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Kawasan;
 use App\Models\Perumahan;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class PerumahanController extends Controller
 {
@@ -13,7 +15,8 @@ class PerumahanController extends Controller
      */
     public function index()
     {
-        $data = Perumahan::all();
+        $data = Perumahan::join('kawasans', 'kawasans.id', '=', 'perumahans.kawasan_id')
+            ->get(['perumahans.*', 'kawasans.kawasan']);
         return view('super_admin.perumahan.index', [
             'data' => $data
         ]);
@@ -24,7 +27,10 @@ class PerumahanController extends Controller
      */
     public function create()
     {
-        //
+        $kawasan = Kawasan::where('alamat', '!=', 'Global')->get();
+        return view('super_admin.perumahan.create', [
+            'kawasan' => $kawasan
+        ]);
     }
 
     /**
@@ -32,7 +38,26 @@ class PerumahanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'nomor_rumah' => 'required',
+            'tipe' => 'required',
+            'kawasan' => 'required',
+            'status' => 'required',
+        ]);
+
+        try {
+            Perumahan::create([
+                'nomor_rumah' => $request->nomor_rumah,
+                'tipe' => $request->tipe,
+                'kawasan_id' => $request->kawasan,
+                'status' => $request->status,
+            ]);
+            toast('Berhasil Menambahkan Data!', 'success');
+            return redirect()->back();
+        } catch (\Throwable $th) {
+            toast('Gagal Menambahkan Data!', 'error');
+            return redirect()->back();
+        }
     }
 
     /**

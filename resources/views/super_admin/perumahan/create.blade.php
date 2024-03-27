@@ -2,48 +2,61 @@
 @section('content')
     <div class="main-content">
         <div class="page-header">
-            <h2 class="header-title">Data Member</h2>
+            <h2 class="header-title">Data Perumahan</h2>
             <div class="header-sub-title">
                 <nav class="breadcrumb breadcrumb-dash">
                     <a href="" class="breadcrumb-item"><i class="anticon anticon-database m-r-5"></i>Master Data</a>
-                    <a class="breadcrumb-item" href="">Member</a>
-                    <span class="breadcrumb-item active">Tambah Data Member</span>
+                    <a class="breadcrumb-item" href="">Perumahan</a>
+                    <span class="breadcrumb-item active">Tambah Data Perumahan</span>
                 </nav>
             </div>
         </div>
         <div class="card">
-            <form action="{{ url('su/member') }}" method="post">
+            <form action="{{ url('su/perumahan') }}" method="post">
                 @csrf
                 @method('POST')
                 <div class="card-body">
                     <div class="m-t-25">
                         <div class="form-row">
-                            <label for="nama">Nama</label>
-                            <input type="text" name="nama" id="nama"
-                                class="form-control @error('nama')
+                            <label for="nomor_rumah">Nomor Rumah</label>
+                            <input type="text" name="nomor_rumah" id="nomor_rumah"
+                                class="form-control @error('nomor_rumah')
                                 is-invalid
                             @enderror">
-                            @error('nama')
+                            @error('nomor_rumah')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="form-row">
-                            <label for="email">Email</label>
-                            <input type="email" name="email" id="email"
-                                class="form-control @error('email')
+                            <label for="tipe">Tipe</label>
+                            <input type="text" name="tipe" id="tipe"
+                                class="form-control @error('tipe')
                                 is-invalid
                             @enderror">
-                            @error('email')
+                            @error('tipe')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="form-row">
-                            <label for="password">Password</label>
-                            <input type="password" name="password" id="password"
-                                class="form-control @error('password')
-                                is-invalid
-                            @enderror">
-                            @error('password')
+                            <label for="kawasan">Kawasan</label>
+                            <select name="kawasan" id="kawasan" class="form-control">
+                                <option selected disabled>Pilih Kawasan</option>
+                                @foreach ($kawasan as $item)
+                                    <option value="{{ $item->id }}">{{ $item->kawasan }}</option>
+                                @endforeach
+                            </select>
+                            @error('tipe')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="form-row">
+                            <label for="status">Status</label>
+                            <select name="status" id="status" class="form-control">
+                                <option selected disabled>Pilih Kawasan</option>
+                                <option value="Lunas">Lunas</option>
+                                <option value="Belum Lunas">Belum Lunas</option>
+                            </select>
+                            @error('status')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>

@@ -7,6 +7,7 @@ use App\Models\Terlaris;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class AdminController extends Controller
 {

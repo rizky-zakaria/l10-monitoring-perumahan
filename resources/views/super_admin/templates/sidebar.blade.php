@@ -1,13 +1,21 @@
 <div class="side-nav">
     <div class="side-nav-inner">
         <ul class="side-nav-menu scrollable">
-            <li class="nav-item">
-                <a href="{{ url('su/home') }}">
+            <li class="nav-item dropdown">
+                <a class="dropdown-toggle" href="javascript:void(0);">
                     <span class="icon-holder">
                         <i class="anticon anticon-dashboard"></i>
                     </span>
-                    Dashboard
+                    <span class="title">Dashboard</span>
+                    <span class="arrow">
+                        <i class="arrow-icon"></i>
+                    </span>
                 </a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="{{ url('su/home') }}">Home</a>
+                    </li>
+                </ul>
             </li>
             <li class="nav-item dropdown">
                 <a class="dropdown-toggle" href="javascript:void(0);">
@@ -32,21 +40,37 @@
                 </ul>
             </li>
 
-            <li class="nav-item">
-                <a href="{{ url('su/pembayaran') }}">
+            <li class="nav-item dropdown">
+                <a class="dropdown-toggle" href="javascript:void(0);">
                     <span class="icon-holder">
                         <i class="anticon anticon-credit-card"></i>
                     </span>
-                    Pembayaran
+                    <span class="title">Transaksi</span>
+                    <span class="arrow">
+                        <i class="arrow-icon"></i>
+                    </span>
                 </a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="{{ url('su/pembayaran') }}">Pembayaran</a>
+                    </li>
+                </ul>
             </li>
-            <li class="nav-item">
-                <a href="{{ url('su/monitoring') }}">
+            <li class="nav-item dropdown">
+                <a class="dropdown-toggle" href="javascript:void(0);">
                     <span class="icon-holder">
                         <i class="anticon anticon-camera"></i>
                     </span>
-                    Monitoring
+                    <span class="title">Monitoring</span>
+                    <span class="arrow">
+                        <i class="arrow-icon"></i>
+                    </span>
                 </a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="{{ url('su/monitoring') }}">CCTV</a>
+                    </li>
+                </ul>
             </li>
         </ul>
     </div>

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('id_member');
             $table->string('nik');
             $table->string('jk');
-            $table->string('nomor_rumah');
+            $table->bigInteger('perumahan_id');
             $table->bigInteger('kawasan_id');
             $table->timestamps();
         });

@@ -37,6 +37,11 @@ Route::middleware(['auth'])->group(function () {
     });
     Route::group(['middleware' => ['role:administrator'], 'prefix' => 'admin'], function () {
         Route::get('/home', [App\Http\Controllers\Admin\HomeController::class, 'index'])->name('admin.home');
+        Route::resource('member', App\Http\Controllers\Admin\MemberController::class);
+        Route::resource('perumahan', App\Http\Controllers\Admin\PerumahanController::class);
+        Route::resource('deliveri', App\Http\Controllers\Admin\DeliveriController::class);
+        Route::get('profile', [App\Http\Controllers\Admin\ProfileController::class, 'index']);
+        Route::get('pembayaran', [App\Http\Controllers\Admin\PaymentController::class, 'index']);
     });
 });
 Route::get('transaksi/successfuly', [TransaksiController::class, 'index']);

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\Member\DeliveriController;
 use App\Http\Controllers\Api\Member\KeamananController;
 use App\Http\Controllers\Api\Member\KebersihanController;
 use App\Http\Controllers\Api\Member\KeranjangController;
@@ -31,7 +32,10 @@ Route::prefix('member')->group(function () {
         Route::resource('produk', ProdukController::class)->except(['create', 'edit', 'destroy']);
         Route::resource('keranjang', KeranjangController::class)->except(['create', 'edit', 'update']);
         Route::resource('profile', ProfileController::class)->except(['create', 'edit', 'destroy', 'show', 'update']);
+        Route::get('deliveri/{id}', [DeliveriController::class, 'show']);
+        Route::get('transaksi', [TransaksiController::class, 'index']);
         Route::post('transaksi', [TransaksiController::class, 'store']);
+        Route::get('transaksi/{id}', [TransaksiController::class, 'show']);
         Route::post('/logout', [App\Http\Controllers\Api\Member\LoginController::class, 'logout']);
     });
     Route::post('transaksis/webhook', [TransaksiController::class, 'webhook']);

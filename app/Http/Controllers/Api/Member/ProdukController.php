@@ -20,14 +20,19 @@ class ProdukController extends Controller
 {
     public function index()
     {
+
         $kawasan = Biodata::where('user_id', Auth::user()->id)->first();
 
         $data = Produk::join('markets', 'markets.id', '=', 'produks.market_id')
             ->join('gambars', 'gambars.id', '=', 'produks.gambar_id')
+            ->when(request()->q, function ($pdk) {
+                $pdk = $pdk->where('produk', 'like', '%' . request()->q . '%');
+            })
             ->where('markets.kawasan_id', $kawasan->kawasan_id)
             ->where('produks.kategori', 'market')
             ->where('produks.status', 'aktif')
-            ->orderBy('produks.created_at', 'desc')->get(['produks.*', 'gambars.gambar']);
+            ->orderBy('produks.created_at', 'desc')
+            ->get(['produks.*', 'gambars.gambar']);
         return new DataResource(true, 'Successfuly', $data);
     }
 

@@ -20,11 +20,11 @@
     <div class="app">
         <div class="layout">
             <!-- Header START -->
-            @include('templates.navbar')
+            @include('admin.templates.navbar')
             <!-- Header END -->
 
             <!-- Side Nav START -->
-            @include('templates.sidebar')
+            @include('admin.templates.sidebar')
             <!-- Side Nav END -->
 
             <!-- Page Container START -->
@@ -38,7 +38,7 @@
                 <!-- Footer START -->
                 <footer class="footer">
                     <div class="footer-content justify-content-between">
-                        <p class="m-b-0">Copyright © 2019 Theme_Nate. All rights reserved.</p>
+                        <p class="m-b-0">Copyright © 2024 Monitoring Perumahan. All rights reserved.</p>
                         <span>
                             <a href="" class="text-gray m-r-15">Term &amp; Conditions</a>
                             <a href="" class="text-gray">Privacy &amp; Policy</a>
@@ -237,6 +237,7 @@
 
     <!-- Core JS -->
     <script src="{{ asset('assets/js/app.min.js') }}"></script>
+    @include('sweetalert::alert')
     @stack('js')
 </body>
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Member;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\DataResource;
+use App\Models\Deliveri;
 use App\Models\Keranjang;
 use App\Models\Produk;
 use App\Models\Transaksi;
@@ -16,6 +17,23 @@ use Illuminate\Support\Str;
 
 class TransaksiController extends Controller
 {
+    public function index()
+    {
+        $data = Deliveri::join('transaksis', 'transaksis.id', '=', 'deliveris.transaksi_id')
+            ->where('deliveris.user_id', Auth::user()->id)
+            ->get(['deliveris.*', 'transaksis.checkout_link', 'transaksis.harga', 'transaksis.order_id']);
+        return new DataResource(true, 'Successfuly', $data);
+    }
+
+    public function show($id)
+    {
+        $data = Deliveri::join('transaksis', 'transaksis.id', '=', 'deliveris.transaksi_id')
+            ->where('deliveris.user_id', Auth::user()->id)
+            ->where('deliveris.transaksi_id', $id)
+            ->first(['deliveris.*', 'transaksis.checkout_link', 'transaksis.harga', 'transaksis.order_id']);
+        return new DataResource(true, 'Successfuly', $data);
+    }
+
     public function store(Request $request)
     {
 
@@ -73,6 +91,12 @@ class TransaksiController extends Controller
             $payment->periode = date('Y-m');
             $payment->kategori = 'market';
             $payment->save();
+
+            $deliveri = Deliveri::create([
+                'transaksi_id' => $payment->id,
+                'user_id' => Auth::user()->id,
+                'status' => 'market'
+            ]);
 
 
             $keranjang = Keranjang::where('user_id', Auth::user()->id)->get();

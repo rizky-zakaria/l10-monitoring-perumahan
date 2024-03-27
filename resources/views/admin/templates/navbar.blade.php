@@ -107,12 +107,14 @@
                                 <img src="{{ asset('assets/images/avatars/thumb-3.jpg') }}" alt="">
                             </div>
                             <div class="m-l-10">
-                                <p class="m-b-0 text-dark font-weight-semibold">Marshall Nichols</p>
-                                <p class="m-b-0 opacity-07">UI/UX Desinger</p>
+                                <p class="m-b-0 text-dark font-weight-semibold">{{ Auth::user()->name }}</p>
+                                <p class="m-b-0 opacity-07">
+                                    {{ Auth::user()->role = 'super_administrator' ? 'Super Admin' : 'Administrator' }}
+                                </p>
                             </div>
                         </div>
                     </div>
-                    <a href="javascript:void(0);" class="dropdown-item d-block p-h-15 p-v-10">
+                    <a href="{{ url('su/profile') }}" class="dropdown-item d-block p-h-15 p-v-10">
                         <div class="d-flex align-items-center justify-content-between">
                             <div>
                                 <i class="anticon opacity-04 font-size-16 anticon-user"></i>
@@ -121,40 +123,25 @@
                             <i class="anticon font-size-10 anticon-right"></i>
                         </div>
                     </a>
-                    <a href="javascript:void(0);" class="dropdown-item d-block p-h-15 p-v-10">
-                        <div class="d-flex align-items-center justify-content-between">
-                            <div>
-                                <i class="anticon opacity-04 font-size-16 anticon-lock"></i>
-                                <span class="m-l-10">Account Setting</span>
+                    <form action="{{ route('logout') }}" method="post">
+                        @csrf
+                        <button type="submit" class="dropdown-item d-block p-h-15 p-v-10">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div>
+                                    <i class="anticon opacity-04 font-size-16 anticon-logout"></i>
+                                    <span class="m-l-10">Logout</span>
+                                </div>
+                                <i class="anticon font-size-10 anticon-right"></i>
                             </div>
-                            <i class="anticon font-size-10 anticon-right"></i>
-                        </div>
-                    </a>
-                    <a href="javascript:void(0);" class="dropdown-item d-block p-h-15 p-v-10">
-                        <div class="d-flex align-items-center justify-content-between">
-                            <div>
-                                <i class="anticon opacity-04 font-size-16 anticon-project"></i>
-                                <span class="m-l-10">Projects</span>
-                            </div>
-                            <i class="anticon font-size-10 anticon-right"></i>
-                        </div>
-                    </a>
-                    <a href="javascript:void(0);" class="dropdown-item d-block p-h-15 p-v-10">
-                        <div class="d-flex align-items-center justify-content-between">
-                            <div>
-                                <i class="anticon opacity-04 font-size-16 anticon-logout"></i>
-                                <span class="m-l-10">Logout</span>
-                            </div>
-                            <i class="anticon font-size-10 anticon-right"></i>
-                        </div>
-                    </a>
+                        </button>
+                    </form>
                 </div>
             </li>
-            <li>
+            {{-- <li>
                 <a href="javascript:void(0);" data-toggle="modal" data-target="#quick-view">
                     <i class="anticon anticon-appstore"></i>
                 </a>
-            </li>
+            </li> --}}
         </ul>
     </div>
 </div>

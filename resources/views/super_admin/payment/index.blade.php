@@ -101,7 +101,7 @@
                                             @endforeach
                                         </td>
                                         <td>
-                                            {{ $item->transaksiDetail[0]->produk->kategori }}
+                                            {{ $item->kategori }}
                                         </td>
                                         <td>Rp. {{ number_format($item->harga, 0, ',', '.') }}</td>
                                         <td>{{ $item->status == 'capture' ? 'successfuly' : $item->status }}</td>

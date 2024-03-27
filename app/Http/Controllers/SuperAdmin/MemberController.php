@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class MemberController extends Controller
 {
@@ -36,14 +37,17 @@ class MemberController extends Controller
             'email' => 'required|email',
             'password' => 'min:8|required|string'
         ]);
-
-        User::create([
-            'name' => $request->nama,
-            'email' => $request->email,
-            'password' => $request->password,
-            'role' => 'member'
-        ]);
-
+        try {
+            User::create([
+                'name' => $request->nama,
+                'email' => $request->email,
+                'password' => $request->password,
+                'role' => 'member'
+            ]);
+            toast('Berhasil menambahkan data!', 'success');
+        } catch (\Throwable $th) {
+            toast('Gagal menambahkan data!', 'success');
+        }
         return redirect(url('su/member'));
     }
 
@@ -69,22 +73,26 @@ class MemberController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        // dd($request);
         $this->validate($request, [
             'nama' => 'required|string',
             'email' => 'required|email'
         ]);
 
-        $data = User::find($id);
-        $data->name = $request->nama;
-        $data->email = $request->email;
-        if ($request->password) {
-            $this->validate($request, [
-                'password' => 'min:8|string'
-            ]);
-            $data->password = Hash::make($request->password);
+        try {
+            $data = User::find($id);
+            $data->name = $request->nama;
+            $data->email = $request->email;
+            if ($request->password) {
+                $this->validate($request, [
+                    'password' => 'min:8|string'
+                ]);
+                $data->password = Hash::make($request->password);
+            }
+            $data->update();
+            toast('Berhasil mengubah data!', 'success');
+        } catch (\Throwable $th) {
+            toast('Gagal mengubah data!', 'success');
         }
-        $data->update();
         return redirect(url('su/member'));
     }
 
@@ -93,8 +101,14 @@ class MemberController extends Controller
      */
     public function destroy(string $id)
     {
-        $data = User::find($id);
-        $data->delete();
+        try {
+            $data = User::find($id);
+            $data->delete();
+            toast('Berhasil menghapus data!', 'succes');
+        } catch (\Throwable $th) {
+            toast('Gagal menghapus data!', 'error');
+        }
+
         return redirect(url('su/member'));
     }
 }

@@ -10,4 +10,9 @@ class Kawasan extends Model
     use HasFactory;
 
     protected $guarded = ['id'];
+
+    public function perumahan()
+    {
+        return $this->hasMany(Perumahan::class);
+    }
 }

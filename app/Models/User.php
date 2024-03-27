@@ -59,4 +59,14 @@ class User extends Authenticatable implements JWTSubject
     {
         return [];
     }
+
+    public function biodata()
+    {
+        return $this->hasOne(Biodata::class);
+    }
+
+    public function tugas()
+    {
+        return $this->hasOne(Tugas::class);
+    }
 }

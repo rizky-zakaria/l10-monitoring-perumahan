@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\SuperAdmin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Slider;
 use Illuminate\Http\Request;
 
 class SliderController extends Controller
@@ -12,7 +13,8 @@ class SliderController extends Controller
      */
     public function index()
     {
-        //
+        $data = Slider::all();
+        return view('super_admin.slider.index');
     }
 
     /**
@@ -28,7 +30,20 @@ class SliderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'gambar' => ''
+        ]);
+
+        try {
+            Slider::create([
+                'gambar' => ''
+            ]);
+            toast('Berhasil menambahkan data', 'success');
+        } catch (\Throwable $th) {
+            toast('Gagal menambahkan data', 'error');
+        }
+
+        return redirect(url('su/slider'));
     }
 
     /**
@@ -60,6 +75,13 @@ class SliderController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            $data = Slider::find($id);
+            $data->delete();
+            toast('Berhasil menghapus data', 'success');
+        } catch (\Throwable $th) {
+            toast('Gagal menghapus data', 'error');
+        }
+        return redirect(url('su/slider'));
     }
 }

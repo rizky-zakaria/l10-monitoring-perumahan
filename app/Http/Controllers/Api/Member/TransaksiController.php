@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Ramsey\Uuid\Uuid;
 
 class TransaksiController extends Controller
 {
@@ -88,6 +89,65 @@ class TransaksiController extends Controller
             $payment->harga = array_sum($harga);
             $payment->user_id = auth()->user()->id;
             $payment->checkout_link = $response->redirect_url;
+            $payment->periode = date('Y-m');
+            $payment->kategori = 'market';
+            $payment->save();
+
+            $deliveri = Deliveri::create([
+                'transaksi_id' => $payment->id,
+                'user_id' => Auth::user()->id,
+                'status' => 'market'
+            ]);
+
+
+            $keranjang = Keranjang::where('user_id', Auth::user()->id)->get();
+            foreach ($keranjang as $item) {
+                $produk = Produk::find($item->produk_id);
+                $produk->stok = $produk->stok - $item->qty;
+                $produk->update();
+                $td = TransaksiDetail::create([
+                    'produk_id' => $item->produk_id,
+                    'qty' => $item->qty,
+                    'transaksi_id' => $payment->id
+                ]);
+                $delKeranjang = Keranjang::find($item->id);
+                $delKeranjang->delete();
+            }
+
+            return new DataResource(true, 'Successfuly', $payment);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Gagal mengisi database'
+            ]);
+        }
+    }
+
+    public function storeTunai(Request $request)
+    {
+
+        $validator = Validator::make($request->all(), [
+            'confirmation'    => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        }
+
+        try {
+            $harga = [];
+
+            $keranjang = Keranjang::where('user_id', Auth::user()->id)->get();
+            foreach ($keranjang as $item) {
+                $harga[] = $item->harga;
+            }
+
+            $payment = new Transaksi();
+            $payment->order_id = Uuid::uuid4();
+            $payment->status = 'pending';
+            $payment->harga = array_sum($harga);
+            $payment->user_id = auth()->user()->id;
+            $payment->checkout_link = 'cod';
             $payment->periode = date('Y-m');
             $payment->kategori = 'market';
             $payment->save();

@@ -24,4 +24,12 @@ class PaymentController extends Controller
             'kebersihan' => $kebersihan
         ]);
     }
+
+    public function print($id)
+    {
+        $data = Transaksi::find($id);
+        return view('super_admin.payment.print', [
+            'data' => $data
+        ]);
+    }
 }

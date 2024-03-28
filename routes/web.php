@@ -38,6 +38,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('monitoring', [MonitoringController::class, 'index']);
         Route::get('profile', [ProfileController::class, 'index']);
         Route::get('pembayaran', [PaymentController::class, 'index']);
+        Route::get('pembayaran/print/{id}', [PaymentController::class, 'print']);
     });
     Route::group(['middleware' => ['role:administrator'], 'prefix' => 'admin'], function () {
         Route::get('/home', [App\Http\Controllers\Admin\HomeController::class, 'index'])->name('admin.home');

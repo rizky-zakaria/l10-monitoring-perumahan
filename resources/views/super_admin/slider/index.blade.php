@@ -30,7 +30,9 @@
                             @foreach ($data as $item)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $item->gambar }}</td>
+                                    <td>
+                                        <img src="{{ asset('uploads/' . $item->gambar) }}" alt="" width="100px">
+                                    </td>
                                     <td>
                                         {{-- <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
                                             data-target="#deleteModal" data-bs-id="{{ $item->id }}">Hapus

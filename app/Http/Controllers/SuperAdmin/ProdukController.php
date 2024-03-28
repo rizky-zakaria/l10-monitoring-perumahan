@@ -3,18 +3,18 @@
 namespace App\Http\Controllers\SuperAdmin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Slider;
+use App\Models\Gambar;
+use App\Models\Market;
+use App\Models\Produk;
 use Illuminate\Http\Request;
 
-class SliderController extends Controller
+class ProdukController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        $data = Slider::all();
-        return view('super_admin.slider.index', ['data' => $data]);
+        $data = Produk::where('kategori', 'market')->where('status', 'aktif')->get();
+        $market = Market::all();
+        return view('super_admin.produk.index', ['data' => $data, 'market' => $market]);
     }
 
     /**
@@ -34,21 +34,31 @@ class SliderController extends Controller
             'gambar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
 
-        // dd($request);
-
         try {
             $imageName = time() . '.' . $request->gambar->extension();
             $request->gambar->move(public_path('uploads'), $imageName);
 
-            Slider::create([
+            $gambar = Gambar::create([
                 'gambar' => $imageName
+            ]);
+
+            Produk::create([
+                'produk' => $request->produk,
+                'harga' => $request->harga,
+                'stok' => $request->stok,
+                'kategori' => 'market',
+                'deskripsi' => $request->deskripsi,
+                'ketentuan' => '',
+                'status' => 'aktif',
+                'market_id' => $request->market,
+                'gambar_id' => $gambar->id
             ]);
             toast('Berhasil menambahkan data', 'success');
         } catch (\Throwable $th) {
             toast('Gagal menambahkan data', 'error');
         }
 
-        return redirect(url('su/slider'));
+        return redirect(url('su/produk'));
     }
 
     /**
@@ -81,12 +91,13 @@ class SliderController extends Controller
     public function destroy(string $id)
     {
         try {
-            $data = Slider::find($id);
-            $data->delete();
+            $data = Produk::find($id);
+            $data->status = 'non-aktif';
+            $data->update();
             toast('Berhasil menghapus data', 'success');
         } catch (\Throwable $th) {
             toast('Gagal menghapus data', 'error');
         }
-        return redirect(url('su/slider'));
+        return redirect(url('su/produk'));
     }
 }

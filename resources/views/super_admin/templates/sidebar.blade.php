@@ -37,6 +37,12 @@
                     <li>
                         <a href="{{ url('su/perumahan') }}">Perumahan</a>
                     </li>
+                    <li>
+                        <a href="{{ url('su/slider') }}">Slider</a>
+                    </li>
+                    <li>
+                        <a href="{{ url('su/produk') }}">Produk</a>
+                    </li>
                 </ul>
             </li>
 

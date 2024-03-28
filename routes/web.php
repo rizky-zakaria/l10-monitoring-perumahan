@@ -5,7 +5,9 @@ use App\Http\Controllers\SuperAdmin\MemberController;
 use App\Http\Controllers\SuperAdmin\MonitoringController;
 use App\Http\Controllers\SuperAdmin\PaymentController;
 use App\Http\Controllers\SuperAdmin\PerumahanController;
+use App\Http\Controllers\SuperAdmin\ProdukController;
 use App\Http\Controllers\SuperAdmin\ProfileController;
+use App\Http\Controllers\SuperAdmin\SliderController;
 use App\Http\Controllers\Web\TransaksiController;
 use Illuminate\Support\Facades\Route;
 
@@ -31,6 +33,8 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('member', MemberController::class);
         Route::resource('administrator', AdminController::class);
         Route::resource('perumahan', PerumahanController::class);
+        Route::resource('produk', ProdukController::class);
+        Route::resource('slider', SliderController::class);
         Route::get('monitoring', [MonitoringController::class, 'index']);
         Route::get('profile', [ProfileController::class, 'index']);
         Route::get('pembayaran', [PaymentController::class, 'index']);

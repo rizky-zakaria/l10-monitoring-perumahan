@@ -84,6 +84,7 @@
                                     <th>Kategori Transaksi</th>
                                     <th>Harga</th>
                                     <th>Status</th>
+                                    <th>Akse</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -105,6 +106,9 @@
                                         </td>
                                         <td>Rp. {{ number_format($item->harga, 0, ',', '.') }}</td>
                                         <td>{{ $item->status == 'capture' ? 'successfuly' : $item->status }}</td>
+                                        <td>
+                                            <a href="" class="btn btn-sm btn-primary">Invoice</a>
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -116,6 +120,7 @@
                                     <th>Kategori Transaksi</th>
                                     <th>Harga</th>
                                     <th>Status</th>
+                                    <th>Aksi</th>
                                 </tr>
                             </tfoot>
                         </table>

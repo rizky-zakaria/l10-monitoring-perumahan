@@ -45,6 +45,7 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('member', App\Http\Controllers\Admin\MemberController::class);
         Route::resource('perumahan', App\Http\Controllers\Admin\PerumahanController::class);
         Route::resource('deliveri', App\Http\Controllers\Admin\DeliveriController::class);
+        Route::resource('produk', App\Http\Controllers\Admin\ProdukController::class);
         Route::get('profile', [App\Http\Controllers\Admin\ProfileController::class, 'index']);
         Route::get('pembayaran', [App\Http\Controllers\Admin\PaymentController::class, 'index']);
     });

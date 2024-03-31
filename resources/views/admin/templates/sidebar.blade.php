@@ -34,6 +34,9 @@
                     <li>
                         <a href="{{ url('admin/perumahan') }}">Perumahan</a>
                     </li>
+                    <li>
+                        <a href="{{ url('admin/produk') }}">Produk</a>
+                    </li>
                 </ul>
             </li>
             <li class="nav-item dropdown">

@@ -10,4 +10,9 @@ class Market extends Model
     use HasFactory;
 
     protected $guarded = ['id'];
+
+    public function kawasan()
+    {
+        return $this->belongsTo(Kawasan::class, 'kawasan_id');
+    }
 }

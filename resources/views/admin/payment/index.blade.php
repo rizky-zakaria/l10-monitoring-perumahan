@@ -88,24 +88,27 @@
                             </thead>
                             <tbody>
                                 @foreach ($data as $item)
-                                    <tr>
-                                        <td>{{ $item->order_id }}</td>
-                                        <td>{{ $item->user->name }}</td>
-                                        <td>
-                                            @foreach ($item->transaksiDetail as $produk)
-                                                <ul>
-                                                    <li>
-                                                        {{ $produk->produk->produk }}
-                                                    </li>
-                                                </ul>
-                                            @endforeach
-                                        </td>
-                                        <td>
-                                            {{ $item->kategori }}
-                                        </td>
-                                        <td>Rp. {{ number_format($item->harga, 0, ',', '.') }}</td>
-                                        <td>{{ $item->status == 'capture' ? 'successfuly' : $item->status }}</td>
-                                    </tr>
+                                    {{-- {{ $item->user->biodata->kawasan_id }} --}}
+                                    @if ($item->user->biodata->kawasan_id === $kawasan)
+                                        <tr>
+                                            <td>{{ $item->order_id }}</td>
+                                            <td>{{ $item->user->name }}</td>
+                                            <td>
+                                                @foreach ($item->transaksiDetail as $produk)
+                                                    <ul>
+                                                        <li>
+                                                            {{ $produk->produk->produk }}
+                                                        </li>
+                                                    </ul>
+                                                @endforeach
+                                            </td>
+                                            <td>
+                                                {{ $item->kategori }}
+                                            </td>
+                                            <td>Rp. {{ number_format($item->harga, 0, ',', '.') }}</td>
+                                            <td>{{ $item->status == 'capture' ? 'successfuly' : $item->status }}</td>
+                                        </tr>
+                                    @endif
                                 @endforeach
                             </tbody>
                             <tfoot>

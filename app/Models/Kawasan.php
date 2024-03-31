@@ -15,4 +15,9 @@ class Kawasan extends Model
     {
         return $this->hasMany(Perumahan::class);
     }
+
+    public function market()
+    {
+        return $this->hasOne(Market::class);
+    }
 }

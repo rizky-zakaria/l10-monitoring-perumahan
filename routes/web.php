@@ -48,6 +48,7 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('produk', App\Http\Controllers\Admin\ProdukController::class);
         Route::get('profile', [App\Http\Controllers\Admin\ProfileController::class, 'index']);
         Route::get('pembayaran', [App\Http\Controllers\Admin\PaymentController::class, 'index']);
+        Route::get('pembayaran/print/{id}', [App\Http\Controllers\Admin\PaymentController::class, 'print']);
     });
 });
 Route::get('transaksi/successfuly', [TransaksiController::class, 'index']);

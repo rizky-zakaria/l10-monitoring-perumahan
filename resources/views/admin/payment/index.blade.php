@@ -107,6 +107,10 @@
                                             </td>
                                             <td>Rp. {{ number_format($item->harga, 0, ',', '.') }}</td>
                                             <td>{{ $item->status == 'capture' ? 'successfuly' : $item->status }}</td>
+                                            <td>
+                                                <a href="{{ url('admin/pembayaran/print/' . $item->id) }}"
+                                                    class="btn btn-sm btn-primary">Invoice</a>
+                                            </td>
                                         </tr>
                                     @endif
                                 @endforeach

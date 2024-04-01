@@ -46,4 +46,12 @@ class PaymentController extends Controller
             'kawasan' => $kawasan
         ]);
     }
+
+    public function print($id)
+    {
+        $data = Transaksi::find($id);
+        return view('admin.payment.print', [
+            'data' => $data
+        ]);
+    }
 }

@@ -84,7 +84,7 @@
                                     <th>Kategori Transaksi</th>
                                     <th>Harga</th>
                                     <th>Status</th>
-                                    <th>Akse</th>
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>

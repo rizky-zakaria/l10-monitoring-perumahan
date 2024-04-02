@@ -93,6 +93,9 @@
     <div class="footer">
         <p>== Terimakasih ==</p>
     </div>
+    <script>
+        window.print();
+    </script>
 </body>
 
 </html>

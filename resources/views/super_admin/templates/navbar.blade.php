@@ -18,7 +18,7 @@
                     <i class="anticon"></i>
                 </a>
             </li>
-            <li class="mobile-toggle">
+            {{-- <li class="mobile-toggle">
                 <a href="javascript:void(0);">
                     <i class="anticon"></i>
                 </a>
@@ -27,10 +27,10 @@
                 <a href="javascript:void(0);" data-toggle="modal" data-target="#search-drawer">
                     <i class="anticon anticon-search"></i>
                 </a>
-            </li>
+            </li> --}}
         </ul>
         <ul class="nav-right">
-            <li class="dropdown dropdown-animated scale-left">
+            {{-- <li class="dropdown dropdown-animated scale-left">
                 <a href="javascript:void(0);" data-toggle="dropdown">
                     <i class="anticon anticon-bell notification-badge"></i>
                 </a>
@@ -93,7 +93,7 @@
                         </div>
                     </div>
                 </div>
-            </li>
+            </li> --}}
             <li class="dropdown dropdown-animated scale-left">
                 <div class="pointer" data-toggle="dropdown">
                     <div class="avatar avatar-image  m-h-10 m-r-15">

@@ -79,7 +79,7 @@ class TransaksiController extends Controller
             $response = Http::withHeaders([
                 'Content-type' => 'application/json',
                 'Authorization' => "Basic $auth",
-            ])->post('https://app.sandbox.midtrans.com/snap/v1/transactions', $params);
+            ])->post('https://app.midtrans.com/snap/v1/transactions', $params);
 
             $response = json_decode($response->body());
 

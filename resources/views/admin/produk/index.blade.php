@@ -96,7 +96,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="{{ url('su/produk') }}" method="post" enctype="multipart/form-data">
+                <form action="{{ url('admin/produk') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     @method('POST')
                     <div class="modal-body">
@@ -112,7 +112,7 @@
                         <textarea name="deskripsi" id="deskripsi" cols="30" rows="10" class="form-control"></textarea>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
                         <button type="submit" class="btn btn-primary">Simpan</button>
                     </div>
                 </form>

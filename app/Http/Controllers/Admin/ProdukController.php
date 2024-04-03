@@ -48,7 +48,6 @@ class ProdukController extends Controller
         try {
             $imageName = time() . '.' . $request->gambar->extension();
             $request->gambar->move(public_path('uploads'), $imageName);
-
             $gambar = Gambar::create([
                 'gambar' => $imageName
             ]);

@@ -87,7 +87,7 @@ class ProdukController extends Controller
                     'first_name' => Auth::user()->name,
                     'email' => Auth::user()->email
                 ),
-                'enabled_payments' => array('credit_card', 'bca_va', 'bni_va', 'bri_va', 'Indomaret', 'alfamart', 'shopeepay', 'gopay')
+                'enabled_payments' => array('credit_card', 'bca_va', 'bni_va', 'bri_va', 'indomaret', 'alfamart', 'shopeepay', 'gopay')
             );
 
             $auth = base64_encode(env('MIDTRANS_SERVER_KEY'));

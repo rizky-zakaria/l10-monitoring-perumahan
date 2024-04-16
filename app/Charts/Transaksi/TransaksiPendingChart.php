@@ -29,11 +29,11 @@ class TransaksiPendingChart
         $pdam = Transaksi::where('kategori', 'pdam')->where('status', '!=', 'capture')->where('created_at', 'like', '%' . date('Y-m') . '%')->sum('harga');
         $keamanan = Transaksi::where('kategori', 'keamanan')->where('status', '!=', 'capture')->where('created_at', 'like', '%' . date('Y-m') . '%')->sum('harga');
         $kebersihan = Transaksi::where('kategori', 'kebersihan')->where('status', '!=', 'capture')->where('created_at', 'like', '%' . date('Y-m') . '%')->sum('harga');
-        
+
         $bulan = Carbon::parse(now());
         return $this->chart->pieChart()
             ->setTitle('Transaksi Pending Bulan ' . $bulan->isoFormat('MMMM'))
-            ->setSubtitle('Pertanggal '.$bulan->isoFormat('LL'))
+            ->setSubtitle('Pertanggal ' . $bulan->isoFormat('LL'))
             ->addData([$keamanan, $kebersihan, $market, $pdam])
             ->setHeight(400)
             ->setLabels($kategori);

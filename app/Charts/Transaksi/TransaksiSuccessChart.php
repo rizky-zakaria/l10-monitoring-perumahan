@@ -32,7 +32,7 @@ class TransaksiSuccessChart
         $bulan = Carbon::parse(now());
         return $this->chart->pieChart()
             ->setTitle('Transaksi Berhasil Bulan ' . $bulan->isoFormat('MMMM'))
-            ->setSubtitle('Pertanggal '.$bulan->isoFormat('LL'))
+            ->setSubtitle('Pertanggal ' . $bulan->isoFormat('LL'))
             ->addData([$keamanan, $kebersihan, $market, $pdam])
             ->setHeight(400)
             ->setLabels($kategori);

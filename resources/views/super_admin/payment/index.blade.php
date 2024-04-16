@@ -151,7 +151,7 @@
 @push('js')
 <script src="{{ $transaksiSuccess->cdn() }}"></script>
 {{ $transaksiSuccess->script() }}
-<script src="{{ $transaksiPending->cdn() }}"></script>
+{{-- <script src="{{ $transaksiPending->cdn() }}"></script> --}}
 {{ $transaksiPending->script() }}
 
 <script src="{{ asset('assets/vendors/datatables/jquery.dataTables.min.js') }}"></script>

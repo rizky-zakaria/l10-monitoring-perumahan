@@ -33,7 +33,7 @@ class TransaksiSuccessChart
         return $this->chart->pieChart()
             ->setTitle('Transaksi Berhasil Bulan ' . $bulan->isoFormat('MMMM'))
             ->setSubtitle('Pertanggal ' . $bulan->isoFormat('LL'))
-            ->addData([$keamanan, $kebersihan, $market, $pdam])
+            ->addData([intval($keamanan), intval($kebersihan), intval($market), intval($pdam)])
             ->setHeight(400)
             ->setLabels($kategori);
     }

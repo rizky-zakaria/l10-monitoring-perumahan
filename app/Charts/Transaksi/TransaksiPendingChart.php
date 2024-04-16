@@ -34,7 +34,7 @@ class TransaksiPendingChart
         return $this->chart->pieChart()
             ->setTitle('Transaksi Pending Bulan ' . $bulan->isoFormat('MMMM'))
             ->setSubtitle('Pertanggal ' . $bulan->isoFormat('LL'))
-            ->addData([$keamanan, $kebersihan, $market, $pdam])
+            ->addData([intval($keamanan), intval($kebersihan), intval($market), intval($pdam)])
             ->setHeight(400)
             ->setLabels($kategori);
     }

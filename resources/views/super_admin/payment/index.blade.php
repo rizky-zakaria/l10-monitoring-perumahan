@@ -84,6 +84,7 @@
                                     <th>Kategori Transaksi</th>
                                     <th>Harga</th>
                                     <th>Status</th>
+                                    <th>Tanggal</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -106,6 +107,7 @@
                                         </td>
                                         <td>Rp. {{ number_format($item->harga, 0, ',', '.') }}</td>
                                         <td>{{ $item->status == 'capture' ? 'successfuly' : $item->status }}</td>
+                                        <td>{{ Carbon\Carbon::parse($item->created_at)->isoFormat('LL') }}</td>
                                         <td>
                                             <a href="{{ url('su/pembayaran/print/' . $item->id) }}"
                                                 class="btn btn-sm btn-primary">Invoice</a>
@@ -121,6 +123,7 @@
                                     <th>Kategori Transaksi</th>
                                     <th>Harga</th>
                                     <th>Status</th>
+                                    <th>Tanggal</th>
                                     <th>Aksi</th>
                                 </tr>
                             </tfoot>

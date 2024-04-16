@@ -31,8 +31,8 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $item->name }}</td>
                                     <td>{{ $item->email }}</td>
-                                    <td>{{ $item->biodata->kawasan->kawasan }} -
-                                        <b>{{ $item->biodata->perumahan->nomor_rumah }}
+                                    <td>{{ $item->biodata->kawasan->kawasan ?? '' }} -
+                                        <b>{{ $item->biodata->perumahan->nomor_rumah ?? '' }}
                                     </td>
                                     <td>
                                         <a href="{{ url('su/member/' . $item->id . '/edit') }}"
